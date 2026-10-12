@@ -26,7 +26,7 @@ class InputHandler:
         self.selected_slot: Optional[int] = None
         self.game_speed = 1.0  # 게임 속도 배수 (1.0 = 정상)
 
-    def handle_event(self, event: pygame.event.event.Event,
+    def handle_event(self, event: pygame.event.Event,
                      state: GameState) -> Optional[Action]:
         """
         Pygame 이벤트 처리

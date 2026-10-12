@@ -14,7 +14,7 @@ ui.py와 함께 UI 시스템을 담당합니다.
 import pygame
 from game.state import GameState
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_WHITE, COLOR_BLACK, COLOR_GREEN, COLOR_RED
-
+from display.layout import (CELL, MAP_ROWS, MAP_COLS, SLOTS, grid_to_pixel, cell_center, PATH_WAYPOINTS, SLOTS, expand_path)
 
 class Renderer:
     """게임 화면 렌더러"""
@@ -30,6 +30,7 @@ class Renderer:
         self.font_large = pygame.font.Font(None, 36)
         self.font_medium = pygame.font.Font(None, 24)
         self.font_small = pygame.font.Font(None, 16)
+        self.path_cells = expand_path(PATH_WAYPOINTS)
 
     def render(self, state: GameState) -> None:
         """
@@ -52,14 +53,9 @@ class Renderer:
 
     def _render_game_area(self, state: GameState) -> None:
         """게임 맵, 타워, 몬스터 렌더링"""
-        # 맵 경계 그리기
-        game_area_width = SCREEN_WIDTH - 200  # 우측 200px는 UI 패널
-        pygame.draw.rect(self.screen, COLOR_WHITE, (10, 10, game_area_width - 20, SCREEN_HEIGHT - 20), 2)
 
-        # 경로 그리기 (흰색 선)
-        # 예시: 경로 좌표를 픽셀로 변환하여 그리기
-        # path = state.map.get_path()
-        # ...
+        # 게임 맵 렌더링
+        self._render_map()
 
         # 타워 렌더링
         self._render_towers(state)
@@ -67,12 +63,39 @@ class Renderer:
         # 몬스터 렌더링
         self._render_enemies(state)
 
+    def _render_map(self):
+        for row in range(MAP_ROWS):
+            for col in range(MAP_COLS):
+                rect = pygame.Rect(*grid_to_pixel(col, row), CELL, CELL)
+                pygame.draw.rect(self.screen, (40, 70, 40), rect)
+                pygame.draw.rect(self.screen, (55, 90, 55), rect, 1)
+
+        for col, row in self.path_cells:
+            pygame.draw.rect(self.screen, (120, 100, 70), (*grid_to_pixel(col, row), CELL, CELL))
+
+        for slot_id, (col, row) in enumerate(SLOTS):
+            rect = pygame.Rect(*grid_to_pixel(col, row), CELL, CELL).inflate(-10, -10)
+            pygame.draw.rect(self.screen, (200, 200, 200), rect, 2)
+            cx, cy = cell_center(col, row)
+
+            s = 12   # + 팔 길이 (칸이 50px이니 12면 적당)
+            pygame.draw.line(self.screen, (200, 200, 200), (cx - s, cy), (cx + s, cy), 3)  # 가로선
+            pygame.draw.line(self.screen, (200, 200, 200), (cx, cy - s), (cx, cy + s), 3)  # 세로선
+            
+            label = self.font_small.render(str(slot_id), True, COLOR_WHITE)
+            self.screen.blit(label, (rect.x + 3, rect.y + 3))
+
+        for (col, row), text, color in [(self.path_cells[0], "S", (60, 160, 60)),
+                                         (self.path_cells[-1], "E", (180, 60, 60))]:
+            pygame.draw.rect(self.screen, color, (*grid_to_pixel(col, row), CELL, CELL))
+            label = self.font_large.render(text, True, COLOR_WHITE)
+            self.screen.blit(label, label.get_rect(center=cell_center(col, row)))
+
     def _render_towers(self, state: GameState) -> None:
         """타워 렌더링"""
         for slot_id, tower_data in state.towers.items():
             # 슬롯 위치 계산 (예시)
-            x = 50 + (slot_id % 8) * 100
-            y = 100 + (slot_id // 8) * 100
+            x, y = cell_center(*SLOTS[slot_id])
 
             # 타워 유형에 따라 색상 결정
             tower_type = tower_data["type"]
