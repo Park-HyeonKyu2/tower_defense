@@ -82,3 +82,6 @@ htmlcov/
 # 로컬 설정
 config.local.py
 settings.local.json
+
+.DS_Store
+
