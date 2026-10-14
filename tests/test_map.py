@@ -93,5 +93,49 @@ class TestMapValidation(unittest.TestCase):
         self.assertIsNotNone(map_obj)
 
 
+class TestMapDataSafety(unittest.TestCase):
+    def test_invalid_load_preserves_map(self):
+        map_obj = GameMap()
+        original = map_obj.get_path()
+        with tempfile.TemporaryDirectory() as directory:
+            filename = os.path.join(directory, "invalid.json")
+            map_obj.export_to_json(filename)
+            with open(filename, encoding="utf-8") as f:
+                data = json.load(f)
+            data["path"][0] = [20, 15]
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(data, f)
+            with self.assertRaises(ValueError):
+                map_obj.load_from_json(filename)
+        self.assertEqual(map_obj.path, original)
+
+    def test_slot_on_path_rejected(self):
+        map_obj = GameMap()
+        map_obj.slots[0] = (0, 3, 1, 1)
+        with self.assertRaises(ValueError):
+            map_obj._validate_map()
+
+    def test_disconnected_path_rejected(self):
+        map_obj = GameMap()
+        map_obj.path.pop(1)
+        with self.assertRaises(ValueError):
+            map_obj._validate_map()
+
+    def test_path_copy_and_invalid_slot_types(self):
+        map_obj = GameMap()
+        map_obj.get_path().clear()
+        self.assertGreater(len(map_obj.path), 2)
+        for value in (None, "0", True, 1.5):
+            self.assertFalse(map_obj.is_valid_slot(value))
+
+    def test_all_stage_data(self):
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[1]
+        data = json.loads((root / "data/stages.json").read_text(encoding="utf-8"))
+        self.assertEqual({int(k) for k in data["stages"]}, set(range(1, 31)))
+        for stage, record in data["stages"].items():
+            self.assertEqual(any(w["boss"] for w in record["waves"]), int(stage) % 5 == 0)
+
+
 if __name__ == "__main__":
     unittest.main()

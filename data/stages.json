@@ -5,16 +5,31 @@
       "waves": [
         {
           "enemies": [
-            {"type": "BASIC", "spawn_time": 1.0},
-            {"type": "BASIC", "spawn_time": 1.5}
+            {
+              "type": "BASIC",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 1.5
+            }
           ],
           "boss": false
         },
         {
           "enemies": [
-            {"type": "BASIC", "spawn_time": 1.0},
-            {"type": "BASIC", "spawn_time": 1.5},
-            {"type": "BASIC", "spawn_time": 2.0}
+            {
+              "type": "BASIC",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 2.0
+            }
           ],
           "boss": false
         }
@@ -24,16 +39,31 @@
       "waves": [
         {
           "enemies": [
-            {"type": "BASIC", "spawn_time": 1.0},
-            {"type": "FAST", "spawn_time": 2.0}
+            {
+              "type": "BASIC",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 2.0
+            }
           ],
           "boss": false
         },
         {
           "enemies": [
-            {"type": "FAST", "spawn_time": 1.0},
-            {"type": "FAST", "spawn_time": 1.5},
-            {"type": "BASIC", "spawn_time": 2.0}
+            {
+              "type": "FAST",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 2.0
+            }
           ],
           "boss": false
         }
@@ -43,16 +73,31 @@
       "waves": [
         {
           "enemies": [
-            {"type": "TANK", "spawn_time": 1.0},
-            {"type": "BASIC", "spawn_time": 2.0}
+            {
+              "type": "TANK",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 2.0
+            }
           ],
           "boss": false
         },
         {
           "enemies": [
-            {"type": "BASIC", "spawn_time": 1.0},
-            {"type": "TANK", "spawn_time": 2.0},
-            {"type": "BASIC", "spawn_time": 3.0}
+            {
+              "type": "BASIC",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 2.0
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 3.0
+            }
           ],
           "boss": false
         }
@@ -62,16 +107,31 @@
       "waves": [
         {
           "enemies": [
-            {"type": "FAST", "spawn_time": 1.0},
-            {"type": "TANK", "spawn_time": 2.0}
+            {
+              "type": "FAST",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 2.0
+            }
           ],
           "boss": false
         },
         {
           "enemies": [
-            {"type": "FAST", "spawn_time": 1.0},
-            {"type": "BASIC", "spawn_time": 1.5},
-            {"type": "TANK", "spawn_time": 2.5}
+            {
+              "type": "FAST",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 2.5
+            }
           ],
           "boss": false
         }
@@ -81,18 +141,679 @@
       "waves": [
         {
           "enemies": [
-            {"type": "BASIC", "spawn_time": 1.0},
-            {"type": "FAST", "spawn_time": 1.5},
-            {"type": "TANK", "spawn_time": 2.0}
+            {
+              "type": "BASIC",
+              "spawn_time": 1.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 2.0
+            }
           ],
           "boss": true,
           "boss_spawn_time": 5.0
+        }
+      ]
+    },
+    "6": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "BASIC",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "7": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "BASIC",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "8": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "BASIC",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "9": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "BASIC",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "10": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "BASIC",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "BASIC",
+              "spawn_time": 3.0
+            }
+          ],
+          "boss": true
+        }
+      ]
+    },
+    "11": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "12": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "13": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "14": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "15": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 4.5
+            }
+          ],
+          "boss": true
+        }
+      ]
+    },
+    "16": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 4.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "17": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 4.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "18": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 4.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "19": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 4.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "20": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "FAST",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 6.0
+            }
+          ],
+          "boss": true
+        }
+      ]
+    },
+    "21": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "22": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "23": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "24": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "25": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 7.5
+            }
+          ],
+          "boss": true
+        }
+      ]
+    },
+    "26": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 7.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "27": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 7.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "28": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 7.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "29": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 7.5
+            }
+          ],
+          "boss": false
+        }
+      ]
+    },
+    "30": {
+      "waves": [
+        {
+          "enemies": [
+            {
+              "type": "TANK",
+              "spawn_time": 0.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 1.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 3.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 4.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 6.0
+            },
+            {
+              "type": "FAST",
+              "spawn_time": 7.5
+            },
+            {
+              "type": "TANK",
+              "spawn_time": 9.0
+            }
+          ],
+          "boss": true
         }
       ]
     }
   },
   "boss_info": {
     "spawn_rule": "매 5스테이지마다 (5, 10, 15, 20, 25, 30)",
-    "boss_appears_in_stage": [5, 10, 15, 20, 25, 30]
+    "boss_appears_in_stage": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30
+    ]
   }
 }

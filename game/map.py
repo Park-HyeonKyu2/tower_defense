@@ -36,6 +36,7 @@ class GameMap:
 
         # 맵 검증
         self._validate_map()
+        self.load_from_json(os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "map.json"))
 
     def _initialize_path(self) -> List[Tuple[int, int]]:
         """
@@ -45,53 +46,57 @@ class GameMap:
         Returns:
             경로 좌표 리스트 [(x1, y1), (x2, y2), ...]
         """
-        # 예시: 맵 좌상단에서 시작해서 우상단으로, 다시 우하단으로, 그리고 좌하단으로
-        path = [
-            (0, 7),     # 시작점
-            (5, 7),
-            (10, 3),
-            (15, 8),
-            (19, 15)    # 기지 위치
-        ]
-        return path
+        # 경로는 각 칸의 중심을 연결하며 모두 직교로 인접합니다.
+        return ([(x + 0.5, 3.5) for x in range(20)]
+                + [(19.5, y + 0.5) for y in range(4, 8)]
+                + [(x + 0.5, 7.5) for x in range(18, -1, -1)]
+                + [(0.5, y + 0.5) for y in range(8, 12)]
+                + [(x + 0.5, 11.5) for x in range(1, 20)])
 
-    def _initialize_slots(self) -> Dict[int, Tuple[int, int, int, int]]:
-        """
-        타워 설치 슬롯 초기화
-        (실제 게임에서는 data/map.json에서 로드)
-
-        Returns:
-            슬롯 ID → (x, y, width, height) 맵
-        """
-        # 예시: 3×8 = 24개 슬롯
-        slots = {}
-        slot_id = 0
-
-        for row in range(3):
-            for col in range(8):
-                # 슬롯 위치 (타워 설치 가능 영역)
-                x = col * 2.5
-                y = row * 5
-                width = 2.0
-                height = 4.5
-                slots[slot_id] = (x, y, width, height)
-                slot_id += 1
-
-        return slots
+    def _initialize_slots(self) -> Dict[int, Tuple[float, float, float, float]]:
+        """슬롯 ID와 (x, y, width, height) 형식을 유지합니다."""
+        return {row * 8 + col: (1 + col * 2, y, 1, 1)
+                for row, y in enumerate((2, 6, 10)) for col in range(8)}
 
     def _validate_map(self) -> None:
-        """맵 유효성 검증"""
-        # 슬롯 수 확인
-        assert len(self.slots) == self.SLOT_COUNT, \
-            f"슬롯 수가 {self.SLOT_COUNT}개여야 함, 현재 {len(self.slots)}개"
-
-        # 경로 유효성 확인
-        assert len(self.path) >= 2, "경로는 최소 2개 이상의 점을 포함해야 함"
-
-        # 각 경로 좌표가 맵 범위 내에 있는지 확인
-        for x, y in self.path:
-            assert 0 <= x <= self.map_width and 0 <= y <= self.map_height, \
-                f"경로 좌표 ({x}, {y})가 맵 범위를 벗어남"
+        """범위, 연속 경로, 슬롯 중복 및 경로 교차를 검사합니다."""
+        import math
+        def numeric(value):
+            return (isinstance(value, (int, float)) and not isinstance(value, bool)
+                    and math.isfinite(value))
+        if (self.map_width != self.MAP_WIDTH or self.map_height != self.MAP_HEIGHT
+                or not numeric(self.map_width) or not numeric(self.map_height)):
+            raise ValueError("맵 크기는 20 x 15여야 합니다")
+        if set(self.slots) != set(range(self.SLOT_COUNT)):
+            raise ValueError("슬롯 ID는 0~23이어야 합니다")
+        if len(self.path) < 2:
+            raise ValueError("경로는 최소 두 점이 필요합니다")
+        for point in self.path:
+            if len(point) != 2 or not all(numeric(v) for v in point):
+                raise ValueError("경로 좌표는 유한한 숫자 두 개여야 합니다")
+            x, y = point
+            if not (0 <= x < self.map_width and 0 <= y < self.map_height):
+                raise ValueError("경로 좌표가 맵 범위를 벗어났습니다")
+        if len(set(self.path)) != len(self.path):
+            raise ValueError("경로 좌표가 중복됩니다")
+        for start, end in zip(self.path, self.path[1:]):
+            if abs(start[0] - end[0]) + abs(start[1] - end[1]) != 1:
+                raise ValueError("경로는 직교로 인접한 칸을 연결해야 합니다")
+        bounds_list = []
+        for bounds in self.slots.values():
+            if len(bounds) != 4 or not all(numeric(v) for v in bounds):
+                raise ValueError("슬롯은 숫자 네 개의 경계여야 합니다")
+            x, y, width, height = bounds
+            if not (width > 0 and height > 0 and x >= 0 and y >= 0
+                    and x + width <= self.map_width and y + height <= self.map_height):
+                raise ValueError("슬롯 경계가 맵 범위를 벗어났습니다")
+            for bx, by, bw, bh in bounds_list:
+                if x < bx + bw and bx < x + width and y < by + bh and by < y + height:
+                    raise ValueError("슬롯 영역이 중복됩니다")
+            bounds_list.append(bounds)
+            for px, py in self.path:
+                if x <= px < x + width and y <= py < y + height:
+                    raise ValueError("슬롯이 경로와 겹칩니다")
 
     def is_valid_slot(self, slot_id: int) -> bool:
         """
@@ -103,7 +108,7 @@ class GameMap:
         Returns:
             유효 여부
         """
-        return 0 <= slot_id < self.SLOT_COUNT
+        return type(slot_id) is int and slot_id in self.slots
 
     def get_slot_position(self, slot_id: int) -> Tuple[float, float]:
         """
@@ -143,7 +148,7 @@ class GameMap:
         Returns:
             경로 좌표 리스트
         """
-        return self.path
+        return list(self.path)
 
     def get_start_position(self) -> Tuple[float, float]:
         """
@@ -178,27 +183,19 @@ class GameMap:
             print(f"경고: {json_file}을 찾을 수 없습니다. 기본값 사용")
             return
 
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-
-            # 경로 로드
-            if "path" in data:
-                self.path = [tuple(p) for p in data["path"]]
-
-            # 슬롯 로드
-            if "slots" in data:
-                self.slots = {}
-                for slot_id, bounds in data["slots"].items():
-                    self.slots[int(slot_id)] = tuple(bounds)
-
-            # 검증
-            self._validate_map()
-
-        except json.JSONDecodeError:
-            print(f"오류: {json_file}이 유효한 JSON이 아닙니다")
-        except Exception as e:
-            print(f"오류: 맵 로드 실패 - {e}")
+        # 먼저 후보를 검증하고 성공한 경우에만 현재 맵을 교체합니다.
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        candidate = object.__new__(GameMap)
+        candidate.map_width = data["width"]
+        candidate.map_height = data["height"]
+        candidate.path = [tuple(p) for p in data["path"]]
+        candidate.slots = {int(k): tuple(v) for k, v in data["slots"].items()}
+        if len(candidate.slots) != len(data["slots"]):
+            raise ValueError("슬롯 ID가 중복됩니다")
+        candidate._validate_map()
+        self.map_width, self.map_height = candidate.map_width, candidate.map_height
+        self.path, self.slots = candidate.path, candidate.slots
 
     def export_to_json(self, json_file: str) -> None:
         """
@@ -217,8 +214,9 @@ class GameMap:
             }
         }
 
+        self._validate_map()
         try:
-            os.makedirs(os.path.dirname(json_file), exist_ok=True)
+            os.makedirs(os.path.dirname(os.path.abspath(json_file)), exist_ok=True)
             with open(json_file, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"맵 저장 완료: {json_file}")
