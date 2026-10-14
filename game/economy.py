@@ -28,8 +28,6 @@ class Economy:
 
     def __init__(self):
         """경제 시스템 초기화"""
-        pass
-
     # ===== 검증 함수 (유효성 검사) =====
 
     def can_buy(self, state: GameState, slot_id: int) -> bool:
@@ -43,6 +41,7 @@ class Economy:
         Returns:
             구매 가능 여부
         """
+
         # 유효한 슬롯인지 확인
         if not state.is_valid_slot(slot_id):
             return False
@@ -127,6 +126,7 @@ class Economy:
         Returns:
             재배치 가능 여부
         """
+        
         # 두 슬롯 모두 유효한지 확인
         if not state.is_valid_slot(from_slot) or not state.is_valid_slot(to_slot):
             return False
@@ -142,7 +142,7 @@ class Economy:
         # 준비 단계 행동 제한 확인
         if state.actions_taken_this_wave >= 20:
             return False
-
+        
         return True
 
     def can_start_wave(self, state: GameState) -> bool:
@@ -284,4 +284,9 @@ class Economy:
 
         refund = self.get_sell_refund(state, slot_id)
         state.gold += refund
+        return True
+
+    #=========돈 획득 여부 및 갱신=======
+    def get_money(self,gold,state):
+        state.gold+=gold
         return True
